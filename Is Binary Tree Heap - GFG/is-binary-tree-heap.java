@@ -143,11 +143,11 @@ class Solution {
         return true;
         if(root.right==null)
         {
-             return (root.left.data<root.data);
+             return (root.left.data<=root.data);
             
         }
         
-            return (root.data>root.left.data && root.data >root.right.data) &&isMax(root.left)&&isMax(root.right);
+            return (root.data>=root.left.data && root.data >=root.right.data) &&isMax(root.left)&&isMax(root.right);
     
     }
     boolean isHeap(Node tree) {
