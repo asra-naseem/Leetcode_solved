@@ -147,7 +147,7 @@ class Solution {
             
         }
         
-            return (root.data>=root.left.data && root.data >=root.right.data) &&isMax(root.left)&&isMax(root.right);
+            return (root.left.data<=root.data && root.data >=root.right.data) &&isMax(root.left)&&isMax(root.right);
     
     }
     boolean isHeap(Node tree) {
