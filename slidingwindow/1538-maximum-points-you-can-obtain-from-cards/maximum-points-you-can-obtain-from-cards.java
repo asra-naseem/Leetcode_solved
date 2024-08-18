@@ -1,27 +1,20 @@
 class Solution {
     public int maxScore(int[] c, int k) {
-    int sum = 0;
-    int maxSum = 0;
-
-    // Calculate the initial sum of the first k elements
-    for (int i = 0; i < k; i++) {
-        sum += c[i];
+       int sum =0;
+       int maxSum=0;
+        for(int i=0;i<k;i++){
+            sum =sum +c[i];
+        }
+        maxSum = Math.max(sum,maxSum);
+        int lindex=k-1,rindex= c.length-1;
+        while(lindex>=0){
+           sum = sum - c[lindex];
+           lindex--;
+           sum = sum+c[rindex];
+           rindex--;
+           maxSum = Math.max(sum,maxSum);
+        }
+        return maxSum;
+        
     }
-
-    maxSum = sum;  // Initialize maxSum with the initial sum
-
-    int lindex = k - 1;
-    int rindex = c.length - 1;
-
-    // Slide the window from the left end to the right end
-    while (lindex >= 0) {
-        sum = sum - c[lindex] + c[rindex];
-        maxSum = Math.max(sum, maxSum);
-        lindex--;
-        rindex--;
-    }
-
-    return maxSum;
-}
-
 }
