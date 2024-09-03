@@ -8,30 +8,40 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
-    public ListNode mergeTwoLists(ListNode l1,ListNode l2){
-        if(l2== null)
-        return l1;
-        else if(l1==null)
-        return l2;
-        else if(l1.val>l2.val){
-            l2.next=mergeTwoLists(l1,l2.next);
-            return l2;
-        }
-        else
-        {
-            l1.next=mergeTwoLists(l1.next,l2);
-            return l1;
-        
-        }
-    }
     public ListNode mergeKLists(ListNode[] lists) {
-        if(lists.length==0)
-        return null;
-        ListNode head = lists[0];
-        for(int i=1;i<lists.length;i++){
-            head = mergeTwoLists(head,lists[i]);
+        PriorityQueue<ListNode> pq= new PriorityQueue<>(
+            new Comparator<ListNode>(){
+                @Override
+                public int compare(ListNode o1,ListNode o2){
+                    if(o1.val>o2.val)
+                    return 1;
+                    else if(o1.val==o2.val)
+                    return 0;
+                    else
+                     return -1;
+                }
+            }
+        );
+        // add first element of lists in priority queue
+        for(ListNode node : lists){
+            if(node!=null)
+            pq.offer(node);
         }
-        return head;
+        ListNode head = new ListNode(0);
+        ListNode point = head;
+        while(!pq.isEmpty()){
+            
+            ListNode minItem = pq.poll();
+            if(minItem.next!=null)
+            pq.offer(minItem.next);
+            point.next = minItem;
+            point=point.next;
+
+
+        }
+        return head.next;
+        
     }
 }
