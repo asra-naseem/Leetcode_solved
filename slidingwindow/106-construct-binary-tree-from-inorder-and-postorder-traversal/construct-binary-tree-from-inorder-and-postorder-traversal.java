@@ -20,20 +20,19 @@ class Solution {
         for(int i=0;i<inorder.length;i++)
          in.put(inorder[i],i);
 
-        TreeNode root = helper(postorder,0,postorder.length-1,in,0,inorder.length-1);
+        TreeNode root = helper(postorder,postorder.length-1,in,0,inorder.length-1);
         return root;
     }
-    public TreeNode helper(int [] postorder,int posStart,int posEnd,Map<Integer,Integer> in,int inStart,int inEnd){
-        if (posStart > posEnd || inStart > inEnd) {
+    public TreeNode helper(int [] postorder,int inRoot,Map<Integer,Integer> in,int inStart,int inEnd){
+        if(inStart>inEnd)
         return null;
-    }
-    TreeNode root = new TreeNode(postorder[posEnd]);
-    int inRoot = in.get(postorder[posEnd]);
-    int leftTreeSize = inRoot - inStart;
-
-    root.left = helper(postorder, posStart, posStart + leftTreeSize-1 , in, inStart, inRoot - 1);
-    root.right = helper(postorder, posStart + leftTreeSize, posEnd - 1, in, inRoot + 1, inEnd);
-    return root;
+        TreeNode root = new TreeNode(postorder[inRoot]);
+        int mid = in.get(postorder[inRoot]);
+        if(mid>inStart)
+        root.left = helper(postorder,inRoot-(inEnd-mid+1),in,inStart,mid-1);
+        root.right = helper(postorder,inRoot-1,in,mid+1,inEnd);
+        return root;
         
+    
     }
-    }
+}
