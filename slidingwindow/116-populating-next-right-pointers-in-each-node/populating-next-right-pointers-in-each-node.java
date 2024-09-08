@@ -25,13 +25,13 @@ class Solution {
     public Node connect(Node node) {
         Node root = node;
         while (root != null && root.left != null) {
-            Node next = root.left;
+          Node nex = root.left;
             while (root != null) {
                 root.left.next = root.right;
                 root.right.next = root.next != null ? root.next.left : null;
                 root = root.next;
             }
-            root = next;
+            root = nex;
         }
         return node;
     }
